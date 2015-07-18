@@ -11,8 +11,10 @@ library(plyr)
 library(tidyr)
 library(knitr)
 ###
-#download file
 getwd();dir()
+setwd("C:/Documents and Settings/Divekar/R workspace"); dir()
+###
+#download file
 if(!file.exists("./UCI_HAR_dataset")){dir.create("./UCI_HAR_dataset")}
 fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 #download.file(fileURL, destfile= "./UCI_HAR_dataset/download.zip")# not used method="curl"
@@ -73,10 +75,17 @@ names(datasubset)<-gsub("Gyro", "Gyroscope", names(datasubset))
 names(datasubset)<-gsub("Mag", "Magnitude", names(datasubset))
 names(datasubset)<-gsub("BodyBody", "Body", names(datasubset))
 names(datasubset)#check
-###
 #
+###
 dataMaster<-aggregate(. ~subject + activity, datasubset, mean)
 dataMaster<-dataMaster[order(dataMaster$subject,dataMaster$activity),]
+###
+#ignore first two columns to append MeanSA to all headers
+colNamesubset <- colnames(dataMaster)
+colNamesubset[3:68] <- paste(colnames(dataMaster[3:68]), "meanSA", sep= " ")
+names(dataMaster)<- colNamesubset
+#
+#Output tidy dataset to external txt file
 write.table(dataMaster, file = "tidydata.txt",row.name=FALSE)
 ###
 #Codebook

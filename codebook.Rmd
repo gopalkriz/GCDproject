@@ -1,106 +1,120 @@
----
-title: "codebook1"
-author: "gopalkriz"
-date: "July 18, 2015"
-output: html_document
----
-****
-#This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# GCDproject  for Coursera Project - Getting and Cleaning Data
+Submitted by: gopalkriz date 18July2015
+https://class.coursera.org/getdata-030/human_grading/view/courses/975114/assessments/3/submissions
+==========================================
+Assignment Submission:
+View the files
+1. readme.md		(project description and script working)
+2. codebook.rmd		(describing the variables)
+3. run_analysis.r	(the code)
+4. tidydata.txt		(output / result)
+==========================================
+Variables: total 68
+---------
+*Note: the header names of each Feature variable are fully expanded for easy reading.
+**meanSA: this represnts the second independent tidy data set has average of each variable for each activity and each subject
+1.	"subject"	- 30 numerals, each represents volunteer subjects / participants of the study
+2.	"activity"	- 6 distinct class labels with their activity name as experimented for by each subject
+3.	"timeBodyAccelerometer-mean()-X  meanSA"
+4.	"timeBodyAccelerometer-mean()-Y  meanSA "
+5.	"timeBodyAccelerometer-mean()-Z  meanSA"
+6.	"timeBodyAccelerometer-std()-X  meanSA"
+7.	"timeBodyAccelerometer-std()-Y  meanSA"
+8.	"timeBodyAccelerometer-std()-Z  meanSA"
+9.	"timeGravityAccelerometer-mean()-X  meanSA"
+10.	"timeGravityAccelerometer-mean()-Y  meanSA"
+11.	"timeGravityAccelerometer-mean()-Z  meanSA"
+12.	"timeGravityAccelerometer-std()-X  meanSA"
+13.	"timeGravityAccelerometer-std()-Y  meanSA"
+14.	"timeGravityAccelerometer-std()-Z  meanSA"
+15.	"timeBodyAccelerometerJerk-mean()-X  meanSA"
+16.	"timeBodyAccelerometerJerk-mean()-Y  meanSA"
+17.	"timeBodyAccelerometerJerk-mean()-Z  meanSA"
+18.	"timeBodyAccelerometerJerk-std()-X  meanSA"
+19.	"timeBodyAccelerometerJerk-std()-Y  meanSA"
+20.	"timeBodyAccelerometerJerk-std()-Z  meanSA"
+21.	"timeBodyGyroscope-mean()-X  meanSA"
+22.	"timeBodyGyroscope-mean()-Y  meanSA"
+23.	"timeBodyGyroscope-mean()-Z  meanSA"
+24.	"timeBodyGyroscope-std()-X  meanSA"
+25.	"timeBodyGyroscope-std()-Y  meanSA"
+26.	"timeBodyGyroscope-std()-Z  meanSA"
+27.	"timeBodyGyroscopeJerk-mean()-X  meanSA"
+28.	"timeBodyGyroscopeJerk-mean()-Y  meanSA"
+29.	"timeBodyGyroscopeJerk-mean()-Z  meanSA"
+30.	"timeBodyGyroscopeJerk-std()-X  meanSA"
+31.	"timeBodyGyroscopeJerk-std()-Y  meanSA"
+32.	"timeBodyGyroscopeJerk-std()-Z  meanSA"
+33.	"timeBodyAccelerometerMagnitude-mean()  meanSA"
+34.	"timeBodyAccelerometerMagnitude-std()  meanSA"
+35.	"timeGravityAccelerometerMagnitude-mean()  meanSA"
+36.	"timeGravityAccelerometerMagnitude-std()  meanSA"
+37.	"timeBodyAccelerometerJerkMagnitude-mean()  meanSA"
+38.	"timeBodyAccelerometerJerkMagnitude-std()  meanSA"
+39.	"timeBodyGyroscopeMagnitude-mean()  meanSA"
+40.	"timeBodyGyroscopeMagnitude-std()  meanSA"
+41.	"timeBodyGyroscopeJerkMagnitude-mean()  meanSA"
+42.	"timeBodyGyroscopeJerkMagnitude-std()  meanSA"
+43.	"frequencyBodyAccelerometer-mean()-X  meanSA"
+44.	"frequencyBodyAccelerometer-mean()-Y  meanSA"
+45.	"frequencyBodyAccelerometer-mean()-Z  meanSA"
+46.	"frequencyBodyAccelerometer-std()-X  meanSA"
+47.	"frequencyBodyAccelerometer-std()-Y  meanSA" 
+48.	"frequencyBodyAccelerometer-std()-Z  meanSA"
+49.	"frequencyBodyAccelerometerJerk-mean()-X  meanSA"
+50.	"frequencyBodyAccelerometerJerk-mean()-Y  meanSA"
+51.	"frequencyBodyAccelerometerJerk-mean()-Z  meanSA"
+52.	"frequencyBodyAccelerometerJerk-std()-X  meanSA"
+53.	"frequencyBodyAccelerometerJerk-std()-Y  meanSA"
+54.	"frequencyBodyAccelerometerJerk-std()-Z  meanSA"
+55.	"frequencyBodyGyroscope-mean()-X  meanSA"
+56.	"frequencyBodyGyroscope-mean()-Y  meanSA"
+57.	"frequencyBodyGyroscope-mean()-Z  meanSA"
+58.	"frequencyBodyGyroscope-std()-X  meanSA"
+59.	"frequencyBodyGyroscope-std()-Y  meanSA"
+60.	"frequencyBodyGyroscope-std()-Z  meanSA"
+61.	"frequencyBodyAccelerometerMagnitude-mean()  meanSA"
+62.	"frequencyBodyAccelerometerMagnitude-std()  meanSA"
+63.	"frequencyBodyAccelerometerJerkMagnitude-men()  meanSA"
+64.	"frequencyBodyAccelerometerJerkMagnitude-std()  meanSA"
+65.	"frequencyBodyGyroscopeMagnitude-mean()  meanSA"
+66.	"frequencyBodyGyroscopeMagnitude-std()  meanSA"
+67.	"frequencyBodyGyroscopeJerkMagnitude-mean()  meanSA"
+68.	"frequencyBodyGyroscopeJerkMagnitude-std()  meanSA"
 
-#When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+table :rows 30 * 6 = 180 | columns | total datafields 12240
 
-```{r}
-#COursera #Getting and Cleaning Data
-#https://class.coursera.org/getdata-030/human_grading
-###
-#Study Topic: wearable computing
-#data collected from accelerometers Samsung Galaxy S smartphone
-#https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
-###
-```
-library(httr)
-library(curl)
-library(plyr)
-library(tidyr)
-library(knitr)
-###
-```
-#download file
-getwd();dir()
-if(!file.exists("./UCI_HAR_dataset")){dir.create("./UCI_HAR_dataset")}
-fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-#download.file(fileURL, destfile= "./UCI_HAR_dataset/download.zip")# not used method="curl"
-#Unzip the folder and files
-#unzip(zipfile="./UCI_HAR_dataset/UCI_HAR_dataset.zip",exdir="./UCI_HAR_dataset")
-#
-```
-DataPath <- file.path("." , "UCI_HAR_dataset")
-FileList<-list.files(DataPath, recursive=TRUE)
-FileList
-###
-```
-# do not input files from Inertial Signals folder or root folder
-# Activity, Subject and Features for data in data frame
-dataActivityTest  <- read.table(file.path(DataPath, "test" , "Y_test.txt" ),header = FALSE)
-dataActivityTrain <- read.table(file.path(DataPath, "train", "Y_train.txt"),header = FALSE)
-dataSubjectTrain <- read.table(file.path(DataPath, "train", "subject_train.txt"),header = FALSE)
-dataSubjectTest  <- read.table(file.path(DataPath, "test" , "subject_test.txt"),header = FALSE)
-dataFeaturesTest  <- read.table(file.path(DataPath, "test" , "X_test.txt" ),header = FALSE)
-dataFeaturesTrain <- read.table(file.path(DataPath, "train", "X_train.txt"),header = FALSE)
-#str(dataframename) to view all the six tables
-###
-```
-#Merge the Test and Training sets
-#step1 merge rows first
-dataSubject <- rbind(dataSubjectTrain, dataSubjectTest)
-dataActivity<- rbind(dataActivityTrain, dataActivityTest)
-dataFeatures<- rbind(dataFeaturesTrain, dataFeaturesTest)
-#step2 give header names to the variables
-names(dataSubject)<-c("subject")
-names(dataActivity)<- c("activity")
-dataFeaturesNames <- read.table(file.path(DataPath, "features.txt"),head=FALSE)
-names(dataFeatures)<- dataFeaturesNames$V2
-#step3 merge columns last
-##delete##dataCombine <- cbind(dataSubject, dataActivity)
-##delete##Data <- cbind(dataFeatures, dataCombine)
-datafullset <- cbind(dataSubject, dataActivity, dataFeatures)
-###
-```
-#compare and match names of column, make a subset as per match
-newdataNames<-dataFeaturesNames$V2[grep("mean\\(\\)|std\\(\\)", dataFeaturesNames$V2)]
-selectedNames <- c(as.character(newdataNames), "subject", "activity" )
-datasubset <- subset(datafullset,select=selectedNames)
-str(datasubset)
-###
-```
-# change the activity fields to charater by the name
-datasubset$activity <- as.character(datasubset$activity)
-datasubset$activity[datasubset$activity == 1] <- "Walking"
-datasubset$activity[datasubset$activity == 2] <- "Walking Upstairs"
-datasubset$activity[datasubset$activity == 3] <- "Walking Downstairs"
-datasubset$activity[datasubset$activity == 4] <- "Sitting"
-datasubset$activity[datasubset$activity == 5] <- "Standing"
-datasubset$activity[datasubset$activity == 6] <- "Laying"
-datasubset$activity <- as.factor(datasubset$activity)
-head(datasubset$activity,30)# Result should show 6Levels (ie factor variable)
-###
-```
-#more Header Name cleaning
-names(datasubset)<-gsub("^t", "time", names(datasubset))
-names(datasubset)<-gsub("^f", "frequency", names(datasubset))
-names(datasubset)<-gsub("Acc", "Accelerometer", names(datasubset))
-names(datasubset)<-gsub("Gyro", "Gyroscope", names(datasubset))
-names(datasubset)<-gsub("Mag", "Magnitude", names(datasubset))
-names(datasubset)<-gsub("BodyBody", "Body", names(datasubset))
-names(datasubset)#check
-###
-```
-#
-dataMaster<-aggregate(. ~subject + activity, datasubset, mean)
-dataMaster<-dataMaster[order(dataMaster$subject,dataMaster$activity),]
-write.table(dataMaster, file = "tidydata.txt",row.name=FALSE)
-###
-#Codebook
-knit2html("codebook.Rmd")
-###end###
-```
+==========================================
+
+Info about the Datatables / Values / Vectors / Variables as used in the Rcode
+
+fileURL			- stores the website URL of data
+destfile		- stores the local folder location for downloading file
+DataPath		- stores the local folder location for unzipping the downloaded file
+FileList		- list of file names of entire dataset in all main/subfolders
+
+Note: Train >> Training
+dataActivityTest	- dataframe of read data from the respective file
+dataActivityTrain	- dataframe of read data from the respective file
+dataSubjectTrain	- dataframe of read data from the respective file
+dataSubjectTest		- dataframe of read data from the respective file
+dataFeaturesTest	- dataframe of read data from the respective file
+dataFeaturesTrain	- dataframe of read data from the respective file
+Note: all the files / full data set is not read; only required Test and Train six files.
+
+dataSubject 		- Training and Test data in merged by Subject
+dataActivity 		- Training and Test data in merged by Activity
+dataFeatures 		- Training and Test data in merged by Features 
+datafullset		- Combined Data of the above three datafile
+
+dataFeaturesNames	- dataset of all the heading names; total 561
+newdataNames		- a subjet of the above; extracting only fields with mean or std
+selectedNames		- namelist from above file plus "subject" and "activity" fields
+
+datasubset		- subjet of 'datafullset', extracting columns with header matching 'selectedNames'
+dataMaster		- a new Dataset, aggregated by meanvalue from 'datasubset' by 'subject' and 'activity'
+colNamesubset 		- temporary variable to make modification to the heading names	
+
+datafullset	[representive of first tidydataset]
+dataMaster	[representive of second independent tidy dataset, of average of each variable for each activity and each subject]
+==========================================
